@@ -54,7 +54,7 @@ public class Download {
 	private String strMsg = null;
 	private boolean bWaitFinished = true;
 	private DownloadThread downloadThread = null;		// 主下载线程
-	private DownloadFinishedCallback downloadFinishedCallback = null;
+	private DownloadFinishedCallback downloadFinishedCallback = null;		// 下载任务完成回调引用
 	
 	/**
 	 * 构造方法，以此方法实例化一个对象时，调用下载启动的start方法会阻塞，下载任务完成之后start方法才能返回
@@ -91,7 +91,7 @@ public class Download {
 
 	/**
 	 * 方法功能：某些下载链接必须要求客户端登录才能下载，因此需要手动的指定登录链接
-	 * @param strLoginUser the strLoginUser to set
+	 * @param strLoginUrl the strLoginUrl to set 指定登录用的URL，下载时如果需要登录，将会尝试通过这个URL登录到下载服务器。
 	 */
 	public void setLoginUrl(String strLoginUrl) {
 		this.strLoginUrl = strLoginUrl;

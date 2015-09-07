@@ -13,7 +13,7 @@ public class DownloadTest implements DownloadFinishedCallback {
 	public DownloadFinishedCallback downloadFinishedCallback;  
     
 	/**
-	 * @param args
+	 * @param args 命令行参数
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
