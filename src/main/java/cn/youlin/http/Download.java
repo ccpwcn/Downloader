@@ -33,7 +33,6 @@ public class Download {
 	
 	/** 默认编码方式 -UTF8 */  
     // private static final String DEFAULT_ENCODE = "utf-8";
-    
 	private URLConnection urlConnection = null;
 	private String strDownloadUrl = null;
 	private String strLoginUrl = null;
@@ -116,13 +115,7 @@ public class Download {
 	 * @param callBack 回调方法接口对象
 	 * 注意：如果在实例化对象时，设置为等待下载完成，则调用此方法没有意义，下载任务完成时也不会执行回调。
 	 */
-	public void setFinishedCallbackfunc(DownloadFinishedCallback callBack)
-    {
-		// 对注册回调时传入的回调接口实话方法，要进行严格检查
-		if (callBack == null) {
-			return ;
-		}
-		
+	public void setFinishedCallbackfunc(DownloadFinishedCallback callBack) {
 		if (this.bWaitFinished == false) {
 			this.downloadFinishedCallback = callBack;
 		}
@@ -145,7 +138,6 @@ public class Download {
 			try {
 				downloadThread.join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -324,31 +316,13 @@ public class Download {
 	            		updateProgressThread.join();
 	            	}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
+					e.printStackTrace();
 					if (updateProgressThread != null) {
 						updateProgressThread.interrupt();
 					}
 				}
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
-				strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
-				strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			} catch (SocketTimeoutException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
-				strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
-				strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 				strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
 			} finally {
 	            try {
@@ -518,10 +492,10 @@ public class Download {
 	        httpURLConnection.connect();
 			
 			nHttpResponseStatus = httpURLConnection.getResponseCode();
-			if (nHttpResponseStatus >= 300) {
+			if (nHttpResponseStatus != 200) {
 				System.err.println("Http request failed， response status:" + nHttpResponseStatus);
 				return bResult;
-			} else if (nHttpResponseStatus == 200) {
+			} else {
 				nBytesDownloaded = 0;
 			}
 			
@@ -580,40 +554,14 @@ public class Download {
             		updateProgressThread.join();
             	}
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
+				e.printStackTrace();
 				if (updateProgressThread != null) {
 					updateProgressThread.interrupt();
 				}
 			}
             this.strMsg = "ok";
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			this.strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			bDownloading = false;
-			bResult = false;
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			this.strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			bDownloading = false;
-			bResult = false;
-		} catch (SocketTimeoutException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			this.strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			bDownloading = false;
-			bResult = false;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			this.strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
-			bDownloading = false;
-			bResult = false;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 			this.strMsg = "\"" + e.getClass().getName() + "\" failed on " + e.getMessage();
 			bDownloading = false;
 			bResult = false;
@@ -771,14 +719,7 @@ public class Download {
 //	            strTotalString += strCurrentLine + "\r\n";
 //	        }
 //	        System.out.println(strTotalString);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -786,7 +727,6 @@ public class Download {
 					reader.close();
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -878,23 +818,13 @@ public class Download {
 		
 		@Override
 		public String toString() {
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			String sep = "\n";
 			
-			sb.append("strUrl:");
-			sb.append(strUrl);
-			sb.append(sep);
-			
-			sb.append("strLocalFilename:");
-			sb.append(strLocalFilename);
-			sb.append(sep);
-			
-			sb.append("strLocalProgressFilename:");
-			sb.append(strLocalProgressFilename);
-			sb.append(sep);
-			
-			sb.append("nFinishedBytes:");
-			sb.append(nFinishedBytes);
+			sb.append("strUrl:").append(strUrl).append(sep);
+			sb.append("strLocalFilename:").append(strLocalFilename).append(sep);
+			sb.append("strLocalProgressFilename:").append(strLocalProgressFilename).append(sep);
+			sb.append("nFinishedBytes:").append(nFinishedBytes);
 			
 			return sb.toString();
 		}
@@ -918,7 +848,6 @@ public class Download {
 				// 执行深拷贝，否则有可能因为对象的多重引用导致数据错误
 				this.downloadProgressData = (DownloadProgressData)downloadProgressData.clone();
 			} catch (CloneNotSupportedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -950,14 +879,7 @@ public class Download {
 				
  		        // System.out.println("Read progress:\n" + downloadProgressData);
 
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				try {
@@ -968,7 +890,6 @@ public class Download {
 						objectInputStream.close();
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -987,7 +908,6 @@ public class Download {
 			try {
 				this.downloadProgressData = (DownloadProgressData)downloadProgressData.clone();
 			} catch (CloneNotSupportedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				return ;
 			}
@@ -1003,11 +923,7 @@ public class Download {
 				objectOutputStream.writeObject(downloadProgressData);
 				// objectOutputStream.writeObject("demo test");
 				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				try {
@@ -1015,7 +931,6 @@ public class Download {
 						objectOutputStream.close();
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1069,7 +984,7 @@ public class Download {
                     	formatter.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
                     	String hms = formatter.format(ms);
 	                    System.out.printf(
-	                    		"downloading  %15s%15s%10.2f%%%15s%17s\n", 
+	                    		"Downloading  %15s%15s%10.2f%%%15s%17s\n",
 	                    		getFriendlySize(this.nFinishedBytes), 
 	                    		getFriendlySize(this.nTotalBytes), 
 	                    		nPercent, 
@@ -1098,7 +1013,7 @@ public class Download {
 	 */
 	@SuppressWarnings("unused")
 	private String getFriendlySize(long nSize) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		final int UNIT = 1024;
 		boolean bBitBytes = true;
 		if (UNIT == 1000) {
