@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 /**
- * @author liwei
+ * @author lidawei
  * @version 1.2
  * @since JDK 1.5
  *

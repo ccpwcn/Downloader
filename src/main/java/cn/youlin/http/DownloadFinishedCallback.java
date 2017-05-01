@@ -5,7 +5,7 @@ package cn.youlin.http;
 
 /**
  * 接口功能：下载回调，需要调用者实现这个接口，供下载任务完成时回调
- * @author liwei
+ * @author lidawei
  * @version 1.1
  */
 public interface DownloadFinishedCallback {

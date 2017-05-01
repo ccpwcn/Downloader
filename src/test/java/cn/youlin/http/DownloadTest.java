@@ -4,20 +4,15 @@
 package cn.youlin.http;
 
 
+import org.junit.Test;
+
 /**
- * @author liwei
+ * @author lidawei
  *
  */
 public class DownloadTest implements DownloadFinishedCallback {
-
-	public DownloadFinishedCallback downloadFinishedCallback;  
-    
-	/**
-	 * @param args 命令行参数
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	@Test
+	public void testIt() {
 		String strUrl = "http://dldir1.qq.com/music/clntupate/QQMusic_Setup_1174.exe";
 		String strLoginUrl = "http://192.168.1.110:8080/j_acegi_security_check";
 		String strLocalFilename = "QQMusic_Setup_1174.exe";
@@ -37,7 +32,6 @@ public class DownloadTest implements DownloadFinishedCallback {
 	
 	@Override
 	public boolean downloadFinished(boolean status, String strMsg) {
-		// TODO Auto-generated method stub
 		System.out.println("下载完成回调，status:" + status + "，Message:" + strMsg);
 		return status;
 	}
